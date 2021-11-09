@@ -1,0 +1,25 @@
+#File downloader 
+import requests
+import json
+import os
+import sys
+sys.path.append('drive/gdrive/MyDrive')
+from google.colab import drive
+#print(drive.mount('/content/gdrive'))
+if drive.mount('/content/gdrive')==None:
+  pass
+else:
+   drive.mount('/content/gdrive')
+
+
+#Read file and get only usernames
+path="gdrive/MyDrive/AirPorts/"
+url = requests.get("https://github.com/pmernyei/wiki-cs-dataset/raw/master/dataset/data.json")
+text = url.text
+print(type(text))
+data = json.loads(text)
+print(type(data))
+filname='data'
+jsonFile = open(path+filname+'.json', "a+",encoding='utf-8')
+json_str = json.dumps(data)
+jsonFile.write(json_str)
